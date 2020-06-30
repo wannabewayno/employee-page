@@ -1,10 +1,63 @@
-.listEmployee {
-    display:flex;
-    align-items: center;
+:root {
+    --listEmployeeHeight:100px;
 }
 
-.listEmployee > img {
-    max-width:100px;
-    max-height:100px;
+.listEmployee main {
+    background-color: hsl(0,0%,80%);
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top-left-radius: calc( var(--listEmployeeHeight) / 2 );
+    border-bottom-left-radius: calc( var(--listEmployeeHeight) / 2 );
+    border-bottom-right-radius:10px;
+    border-top-right-radius:10px;
+    height:var(--listEmployeeHeight);
+    width:400px;
+    overflow: hidden;
+}
+
+.listEmployee section {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.name {
+    margin-bottom:3%;
+}
+
+.listEmployee hgroup {
+    text-align: center;
+    margin: auto;
+    display: flex;
+    text-align: left;
+    justify-content: start;
+    flex-direction: column;
+}
+
+.listEmployee hgroup > h6 {
+    margin:0.2rem 0;
+}
+
+.listEmployee img {
+    max-width:var(--listEmployeeHeight);
+    max-height:var(--listEmployeeHeight);
     border-radius: 50%;
+}
+
+.listEmployee .title {
+    width:fit-content;
+    padding:0.25rem 0.75rem;
+    background-color: red;
+    text-align: center;
+    margin:0 auto;
+    border-bottom-left-radius:15px;
+    border-bottom-right-radius:15px;
+}
+
+.colourTab {
+    justify-self: end;
+    background-color: red;
+    height:100%;
+    width:5%;
 }

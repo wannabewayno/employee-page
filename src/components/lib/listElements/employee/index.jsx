@@ -6,12 +6,19 @@ const { name, role, email, department, phone, image } = props.employee;
 
     return (
         <li className='listEmployee'>
-            <img src={image} alt={`${name}`}/>
-            <h6>{name}</h6>
-            <h6>role: {role}</h6>
-            <h6>email: {email}</h6>
-            <h6>department: {department}</h6>
-            <h6>extension: {phone}</h6>
+            <main>
+            	<img src={image} alt={`${name}`}/>
+            	<section>
+            	    <h6 className="name">{name}</h6>
+            	    <hgroup>
+                        <h6>Department: {department}</h6>
+            	    	<h6>Email: {email}</h6>            	    	
+            	    	<h6>Extension: {phone}</h6>
+            	    </hgroup>  
+            	</section>
+            	<div className="colourTab"></div>
+            </main>
+            <h6 className="title">{role}</h6>  
         </li>
     )
 }
