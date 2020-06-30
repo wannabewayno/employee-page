@@ -1,0 +1,17 @@
+.resultContainer{
+    text-align: center;
+    margin: 0 auto;
+    width:80%
+}
+
+.resultContainer > ul {
+    display:flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.resultContainer > ul > li {
+    margin: 1rem;
+}

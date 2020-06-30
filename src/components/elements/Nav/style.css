@@ -1,0 +1,14 @@
+nav {
+    height:10vh;
+    background-color: #ffc107;
+}
+
+.top {}
+.bottom {}
+
+
+nav > h1 {
+    font-size: 2rem;
+    padding: 0.5rem;
+    text-align: center;
+}
