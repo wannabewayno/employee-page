@@ -2,11 +2,23 @@
     --listEmployeeHeight:100px;
 }
 
-.listEmployee main {
-    background-color: hsl(0,0%,80%);
-    display:flex;
-    align-items: center;
+.listEmployee main, .listEmployee section, .listEmployee hgroup {
+    display: flex;
     justify-content: space-between;
+}
+
+.listEmployee section, .listEmployee hgroup {
+    flex-direction: column;
+}
+
+.listEmployee .title, .listEmployee hgroup {
+    margin:0 auto;
+    text-align: center;
+}
+
+.listEmployee main {
+    background-color: hsl(0,0%,100%);
+    align-items: center;
     border-top-left-radius: calc( var(--listEmployeeHeight) / 2 );
     border-bottom-left-radius: calc( var(--listEmployeeHeight) / 2 );
     border-bottom-right-radius:10px;
@@ -14,25 +26,15 @@
     height:var(--listEmployeeHeight);
     width:400px;
     overflow: hidden;
+    box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.2);
 }
 
-.listEmployee section {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-}
-
-.name {
+.listEmployee .name {
     margin-bottom:3%;
 }
 
 .listEmployee hgroup {
-    text-align: center;
-    margin: auto;
-    display: flex;
     text-align: left;
-    justify-content: start;
-    flex-direction: column;
 }
 
 .listEmployee hgroup > h6 {
@@ -49,10 +51,9 @@
     width:fit-content;
     padding:0.25rem 0.75rem;
     background-color: red;
-    text-align: center;
-    margin:0 auto;
     border-bottom-left-radius:15px;
     border-bottom-right-radius:15px;
+    box-shadow: 0px 8px 5px 2.5px rgba(0,0,0,0.2)
 }
 
 .colourTab {

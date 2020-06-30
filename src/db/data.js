@@ -4,7 +4,7 @@ const faker = require('faker');
 
 const generateEmail = (fullName) => {
     fullName = fullName.split(' ').filter(name => {
-        return name.match(/^Mrs.$|^Dr.$|^Mr.$|^Miss$|^Sr.$|^Mr.$|^I$|^II$|^III$|^IV$|^V$|^VI$|^VII$|^Jr.$|^DDS$|^DVM$/g)||[].length > 0 ? false : true
+        return name.match(/^Mrs.$|^Dr.$|^Mr.$|^Miss$|^Ms.$|^Sr.$|^Mr.$|^I$|^II$|^III$|^IV$|^V$|^VI$|^VII$|^Jr.$|^DDS$|^DVM$/g)||[].length > 0 ? false : true
     }).map(name => name.toLowerCase());
 
     const emailSuffix = ['@hotmail.com','@gmail.com','@yahoo.com'];
