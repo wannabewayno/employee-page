@@ -1,0 +1,18 @@
+.SearchBar{
+    display: flex;
+    align-items: center;
+}
+
+.SearchBar img {
+    width:25px;
+    height:auto;
+}
+
+.SearchBar input {
+    border: none;
+    outline: none;
+}
+
+.SearchBar input:focus input:active {
+    outline:none;
+}

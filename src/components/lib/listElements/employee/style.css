@@ -1,5 +1,6 @@
 :root {
     --listEmployeeHeight:100px;
+    --listEmployeeWidth:425px;
 }
 
 .listEmployee main, .listEmployee section, .listEmployee hgroup {
@@ -18,7 +19,7 @@
 
 .listEmployee main {
     height:var(--listEmployeeHeight);
-    width:400px;
+    width:var(--listEmployeeWidth);
     border-top-left-radius: calc( var(--listEmployeeHeight) / 2 );
     border-bottom-left-radius: calc( var(--listEmployeeHeight) / 2 );
     border-bottom-right-radius:calc( var(--listEmployeeHeight) / 10 );
@@ -27,7 +28,7 @@
 }
 
 .listEmployee main, .listEmployee .title {
-   box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.3);
 }
 
 .listEmployee main > main {

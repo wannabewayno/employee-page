@@ -9,9 +9,7 @@ const FormContainer = (props) => {
 
     return (
         <form>
-            <input type="text"/>
-            <Dropdown options={filterOptions}/>
-            <Dropdown options={sortOptions}/>
+           {props.children}
         </form>
     )
 }
