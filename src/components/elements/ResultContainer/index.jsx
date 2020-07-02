@@ -3,13 +3,11 @@ import './style.css';
 import Employee from '../../lib/listElements/employee'
 
 const ResultContainer = props => {
-    console.log(props.data);
-    
     /**
      * Generates a list from an array of data
      * @param {Array} results 
      */
-    const renderResults = (results) => {
+    const renderResults = results => {
         return results.map(data => <Employee employee={data} key={data.id}/>)
     }
 

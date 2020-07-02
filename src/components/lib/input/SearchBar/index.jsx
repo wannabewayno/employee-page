@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
-import './style/css';
+import './style.css'; 
 
-const SearchBar = props => {
+const SearchBar = ({ liftUpValue }) => {
+
     const [searchValue, setSearchValue ] = useState('');
 
     const handleSearchInput = event => {
-        setSearchValue(event.target.value);
+        const value = event.target.value
+        setSearchValue(value);
+        liftUpValue(value);
     }
 
     return (
-        <fieldset className='SearchBar'>
-            <img src="./magnifying-glass.png" alt=""/>
-            <input type='text' value={searchValue} onChange={event => handleSearchInput(event)} />
-        </fieldset>
+        <div className='search-bar'>
+            <input type='text' value={searchValue} placeholder="search..." onChange={event => handleSearchInput(event)} />
+            <div>
+                <img src="./images/icons/magnifying-glass.png" alt="search-icon"/>
+            </div>
+        </div>
     );
 }
 

@@ -1,0 +1,12 @@
+.dropdown, .dropdown select {
+    width:100%;
+    height:auto;
+}
+
+.dropdown {
+    margin:0.5rem 0;
+}
+
+.dropdown select {
+   
+}

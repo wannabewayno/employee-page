@@ -1,0 +1,9 @@
+:root {
+    --inlineContainerGap:1rem;
+}
+
+.inlineContainer {
+    display: grid;
+    width:100%;
+   
+}

@@ -1,15 +1,30 @@
-import React from 'react';
+import React, { createContext, useEffect } from 'react';
 import './style.css';
-import Dropdown from '../../lib/input/dropdown'
 
-const FormContainer = (props) => {
+const FormContainer = ({ onSubmit, children }) => {
 
-    const filterOptions = ['option1','option2','option3','option4'];
-    const sortOptions = ['name','occupation','phone number'];
+    const FormContext = createContext()
+
+    const handleFormSubmit = event => {
+        event.preventDefault()
+        console.log(event);
+    }
+
+    useEffect(() => {
+        console.log(children)
+        console.log(children.map(child => { 
+                if (typeof(child.type) === 'function'){
+                    return child.type.name
+                } else {
+                    return child.type
+                }
+            })
+        )
+    },[]);
 
     return (
-        <form>
-           {props.children}
+        <form className='form-container' onSubmit={handleFormSubmit}>
+           {children}
         </form>
     )
 }
