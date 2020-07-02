@@ -2,8 +2,7 @@ import React from 'react';
 import './style.css';
 import { v4 as uuidv4 } from 'uuid';
 
-const Dropdown = props => {
-    const { name } = props
+const Dropdown = ({ name, options}) => {
 
     const renderOptions = (options) => {
         return options.map(option => <option value={option} key={uuidv4()}>{option}</option>);
@@ -13,7 +12,7 @@ const Dropdown = props => {
         <div className='dropdown'>
             <label htmlFor={name}>{name}</label>
             <select name={name}>
-                {renderOptions(props.options)}
+                {renderOptions(options)}
             </select>
         </div>
     );
