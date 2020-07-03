@@ -1,11 +1,11 @@
 import React, { useState ,useEffect } from 'react';
 import Nav from './components/elements/Nav';
-import FormContainer from './components/lib/container/FormContainer';
-import Dropdown from './components/lib/input/Dropdown';
+import FormContainer from './components/lib/containers/FormContainer';
+import Dropdown from './components/lib/inputs/Dropdown';
 import ResultContainer from './components/elements/ResultContainer';
-import InlineContainer  from './components/lib/container/flex/InlineContainer';
-import SearchBar from './components/lib/input/SearchBar';
-import Container from './components/lib/container/container';
+import InlineContainer  from './components/lib/containers/flex/InlineContainer';
+import SearchBar from './components/lib/inputs/SearchBar';
+import Container from './components/lib/containers/container';
 import { generateData } from './db/data';
 import Employee from './components/lib/listElements/employee';
 
