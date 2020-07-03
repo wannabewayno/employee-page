@@ -1,13 +1,26 @@
-const { findAllByAltText } = require("@testing-library/react");
-
 // import { useState, useEffect } from 'react'
 const testStrings = ['Bananas','Strawberries','Peaches','Mangos','Kiwi fruits','Strawberries','Apples'];
 const testNumbers = [1,5,70,1002,34,56,1,3,13,456];
 
-console.log(testStrings);
-console.log(testStrings.sort());
-console.log(testNumbers.sort( (a,b) => a - b ));
-console.log(testNumbers.sort( (a,b) => b - a ));
+const randomNumber = range => {
+    return Math.floor(range[0] + Math.random()*(range[1] - range[0])) 
+}
+const testNames = ['Stacy','Lena','Andrea','Micheal','West','Cameron','Wayne','Lewis','Happyius','Mikal','Ivan','Sandra','Emma']
+const createObject = (strings) => {
+    return strings.map(string => {return {name:string} })
+}
+const testObjects = () => {
+    test = [];
+    for (let index = 0; index < 20; index++) {
+        const randomNumber1 = randomNumber([0,200_000]);
+        const randomNumber2 = randomNumber([20,80]);
+        test.push({
+            age: randomNumber2,
+            salary: randomNumber1
+        })
+    }
+    return test;
+}
 
 const validateArrayData = data => {
     // Can't sort data that isn't an array
@@ -28,19 +41,49 @@ const validateArrayData = data => {
     return dataType;
 }
 
-const findCompareFunction = ( dataType, catergory, sampleData ) => {
+const findCompareFunctional = ( dataType, catergory, sampleData ) => {
 
-    let compareFunction;
+    let compareFunctional;
 
     switch(dataType){
         case 'string': // do nothing sort will automatically sort strings alphabetically  
+            compareFunctional = category => {
+                if (category) {
+                    return (a,b) => a[category].localeCompare(b[category])
+                } else {
+                    return (a,b) => a.localeCompare(b)
+                }
+            }
             break;
         case 'object': // access the catergory and test the datatype
-            sampleData[catergory]
+            //? we'll assume that the category is a path to the data to sort
+            //? hence no need to keep recursively calling this
+            //? typeof(sampleData[category]) won't be an object
+            compareFunctional = findCompareFunctional(typeof(sampleData[catergory]));
             break;
-        case 'number':
+        case 'number': compareFunctional = category => {
+            if (category) {
+                return (a,b) => a[category] - b[category]
+            } else {
+                return (a,b) => a - b
+            }
+        }
             break;
-        case 'boolean':
+        case 'boolean': compareFunctional = category => {
+                if (category) {
+                    return (a,b) => {
+                        a = a? 1:0
+                        b = b? 1:0
+                        return a[category] - b[category]
+                    }
+                } else {
+                    return (a,b) => {
+                        a = a? 1:0
+                        b = b? 1:0
+                        return a - b
+                    }
+                }
+        }
             break;
         default: throw new Error(
             'An unsupported datatype was sent to the sort function',
@@ -48,13 +91,14 @@ const findCompareFunction = ( dataType, catergory, sampleData ) => {
             )
     }
 
-    return compareFunction
+    return compareFunctional
 }
 
 const filter = () => {
-
+    const filteredData = '';
     return filteredData
 }
+
 /**
  * 
  * @param  {Array<any>} data          - data to sort
@@ -62,45 +106,51 @@ const filter = () => {
  * @param  {Boolean}    [isAscending] - to sort catergory in ascedning or descending order
  * @return {Array<any>}               - sorted data
  */
-const sort = (data, category, isAscending) => {
+const sort = (data, isAscending, category) => {
     // check that the array is sortable
     const dataType = validateArrayData(data);
 
     // if undefined set it to true
-    isAscending = !isAscending? true : isAscending;
-    // create a placeholder
-    const compareFunction = findCompareFunction(dataType, category, data[0])
+    isAscending = isAscending === undefined ? true : isAscending;
 
-   
     // assign a compare function
-    // do operation based off this
+    const compareFunctional = findCompareFunctional(dataType, category, data[0])
 
-    // reverse the array is necessary
-    const sortedData = data.sort(compare)
+    let compareFunction
+    if (dataType === 'object'){
+        compareFunction = compareFunctional(category);
+    } else {
+        compareFunction = compareFunctional();
+    }
+
+    const sortedData = data.sort(compareFunction);
+
+    // reverse the array if necessary and return it
     return isAscending? sortedData : sortedData.reverse()  
 }
+
 
 /**
  * 
  */
-function useArrange(initalData){
+// function useArrange(initalData){
 
-    const [data, setData] = useState(initalData);
+//     const [data, setData] = useState(initalData);
 
-    /**
-     * this function sorts and filters data
-     */
-    const arrangeData = () => {
-        filteredData = filter(data);
-        sortedAndFilteredData = sort(filteredData);
+//     /**
+//      * this function sorts and filters data
+//      */
+//     const arrangeData = () => {
+//         const filteredData = filter(data);
+//         constsortedAndFilteredData = sort(filteredData);
 
-        return sortedAndFilteredData
-    }
+//         return sortedAndFilteredData
+//     }
 
-    useEffect(() => { 
-        setData()
-    },[])
+//     useEffect(() => { 
+//         setData()
+//     },[])
 
-    return [data, setData, arrangeData ]
+//     return [data, setData, arrangeData ]
 
-}
+// }
