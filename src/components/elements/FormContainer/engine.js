@@ -1,17 +1,23 @@
+import { cloneElement, Children } from 'react'
+
 /**
- * through context, provides a soundOff function for form inputs, selects and textboxes.
- * Gives FormElement pre-context on what context to create and pass down to form elements
- * 
+ * Deeply attaches a function to all children in the container.
+ * This function lifts up state of all elements to the container
+ * @param {Array<Element>} elements - container elements
  */
-const soundOff = input => {
-    const { stateName, value } = input
-    const tateName = stateName.slice(0)
-    const stateFunctionName = `set${tateName.toUpperCase()}${tateName}`
-    return {
-        stateName: stateName,
-        stateFunctionName: stateFunctionName,
-        initialValue: value
-    }
+const liftUpAll = (children,handleliftup) => {
+   return Children.toArray(children).map(child => {
+        const { props:{ children } } = child;
+
+        if (Array.isArray(children)) {
+            return cloneElement(child, { handleliftup:handleliftup },...liftUpAll(children, handleliftup))
+
+        } else if (typeof(child.type) !== 'string'){
+            return cloneElement(child,{ handleliftup:handleliftup })
+        }
+
+        return child
+    })
 }
 
-export default soundOff;
+export { liftUpAll };

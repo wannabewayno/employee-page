@@ -1,8 +1,8 @@
 import React from 'react';
 import './style.css';
 
-const Employee = props => {
-const { name, role, email, department, phone, image } = props.employee;
+const Employee = ({ employee }) => {
+const { name, role, email, department, phone, image } = employee;
 
     return (
         <li className='listEmployee'>

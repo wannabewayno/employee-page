@@ -1,31 +1,26 @@
-import React, { createContext, useEffect } from 'react';
+import React, { useState } from 'react';
 import './style.css';
-import soundOff from './engine'
+import { liftUpAll } from './engine'
 
 const FormContainer = ({ onSubmit, children }) => {
 
-    const FormContext = createContext()
+    const [ formState, setFormState ] = useState({});
 
     const handleFormSubmit = event => {
         event.preventDefault()
-        console.log(event);
+        onSubmit(formState);
+    }
+    
+    const handleliftup = ({stateName, value}) => {
+        formState[stateName] = value;
+        setFormState(formState);
     }
 
-    useEffect(() => {
-        console.log(children)
-        console.log(children.map(child => { 
-                if (typeof(child.type) === 'function'){
-                    return child.type.name
-                } else {
-                    return child.type
-                }
-            })
-        )
-    },[]);
+    const elements = liftUpAll(children,handleliftup)
 
     return (
         <form className='form-container' onSubmit={handleFormSubmit}>
-           {children}
+            {elements}
         </form>
     )
 }

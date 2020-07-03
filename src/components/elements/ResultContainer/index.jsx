@@ -1,20 +1,30 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import './style.css';
-import Employee from '../../lib/listElements/employee'
 
-const ResultContainer = props => {
+const ResultContainer = ({ data, children }) => {
+
+    const errorInfo = 'The ResultContainer should wrap a template component used to render the data it receives'
+    if (!children) {
+        console.error('No template component detected!:', errorInfo)
+    }
+    if (children.length > 1){
+        console.error('Too many child elements in the ResultContainer:', errorInfo)
+    }
+
     /**
-     * Generates a list from an array of data
-     * @param {Array} results 
+     * Generates a React element list from an array of data
+     * @param {Array} data 
      */
-    const renderResults = results => {
-        return results.map(data => <Employee employee={data} key={data.id}/>)
+    const renderData = data => {
+        return data.map(data => {
+           return cloneElement(children,{ employee: data, key: data.id })
+        })
     }
 
     return (
-        <section className='resultContainer'>
+        <section className='ResultContainer'>
             <ul>
-                {renderResults(props.data)}
+                {renderData(data)}
             </ul>
         </section>
     )
