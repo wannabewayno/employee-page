@@ -6,21 +6,21 @@ const FormContainer = ({ onSubmit, children }) => {
 
     const [ formState, setFormState ] = useState({});
 
-    const handleFormSubmit = event => {
-        event.preventDefault()
-        onSubmit(formState);
-    }
-    
     const handleliftup = ({stateName, value}) => {
         formState[stateName] = value;
         setFormState(formState);
     }
+    
+    const [ formElements ] = useState(liftUpAll(children,handleliftup))
 
-    const elements = liftUpAll(children,handleliftup)
+    const handleFormSubmit = event => {
+        event.preventDefault()
+        onSubmit(formState);
+    }
 
     return (
         <form className='form-container' onSubmit={handleFormSubmit}>
-            {elements}
+            {formElements}
         </form>
     )
 }
