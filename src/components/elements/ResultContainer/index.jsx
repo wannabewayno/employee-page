@@ -20,11 +20,6 @@ const ResultContainer = ({ results, children, liftUpState }) => {
 
     const [data, setData] = useState(results);
 
-<<<<<<< HEAD
-    useEffect(()=>liftUpState(data,setData),[]);
-    // useEffect(() => setData(results),[results]);
-    // useEffect(() => console.log(data),[data]);
-=======
     //we're using the liftUpState function make the setData function available to App.js
     useEffect(() => {
         // if a liftUpState function was passed as a prop, call it
@@ -34,7 +29,6 @@ const ResultContainer = ({ results, children, liftUpState }) => {
         //other wise do nothing, it won't break anything
     },[]);
    
->>>>>>> bb48eff60a8d284f5a38fb779675e9a3b042264f
 
     return (
         <section className='ResultContainer'>
