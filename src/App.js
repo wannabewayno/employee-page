@@ -12,29 +12,24 @@ import { useArrange } from './sort.js'
 
 function App() {
 
-  const [employees, setEmployees] = useState([]);
-  const [containerState, setContainerState] = useState({});
-  // const [data, setData] = useState(employees);
+  // set our initial state with a generated array
+  const [employees, setEmployees] = useState(generateData(10));
+  // 
+  const [data, setData] = useState({});
+  // call upon a custom hook to sort data
   const arrangeData = useArrange()
-
-  useEffect( () => {
-    setEmployees(generateData(10));
-  }, [])
 
   useEffect (() => console.log(employees),[employees])
 
   const formSubmit = formState => {
     console.log(formState);
     const { sort } = formState;
-    setEmployees(arrangeData(employees,true,sort));
-    console.log(employees);
-    console.log(containerState);
-    containerState.setStateFn(employees)
-    console.log(containerState.stateValue)
+    data.setState(arrangeData([...employees],true,sort));
   }
 
+  //
   function liftUpState(state,setState){
-    setContainerState({stateValue:state,setStateFn:setState});
+    setData({state,setState});
   }
 
   const sortDropDownOptions   = [
