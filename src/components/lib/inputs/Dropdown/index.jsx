@@ -11,7 +11,7 @@ const Dropdown = ({ name, options, handleliftup }) => {
             "Consider wrapping SearchBar in a FormContainer.")
     }
 
-    const [ dropDownValue, setdropDownValue ] = useState(options[0])
+    const [ dropDownValue, setdropDownValue ] = useState(options[0].value)
 
     useEffect(()=>{
         handleliftup({stateName:name,value:dropDownValue})
@@ -19,17 +19,19 @@ const Dropdown = ({ name, options, handleliftup }) => {
     },[dropDownValue])
     
 
+
     const handleChange = event => {
         setdropDownValue(event.target.value)
     }
-
-   
 
     return (
         <div className='dropdown'>
             <label htmlFor={name}>{name}</label>
             <select name={name} value={dropDownValue} onChange={handleChange}>
-                {options.map(option => <option value={option} key={uuidv4()}>{option}</option>)}
+                {options.map(({display, value}) => { 
+                    return <option value={value} key={uuidv4()}>{display}</option>
+                    })
+                }
             </select>
         </div>
     );

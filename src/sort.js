@@ -1,26 +1,4 @@
-// import { useState, useEffect } from 'react'
-const testStrings = ['Bananas','Strawberries','Peaches','Mangos','Kiwi fruits','Strawberries','Apples'];
-const testNumbers = [1,5,70,1002,34,56,1,3,13,456];
-
-const randomNumber = range => {
-    return Math.floor(range[0] + Math.random()*(range[1] - range[0])) 
-}
-const testNames = ['Stacy','Lena','Andrea','Micheal','West','Cameron','Wayne','Lewis','Happyius','Mikal','Ivan','Sandra','Emma']
-const createObject = (strings) => {
-    return strings.map(string => {return {name:string} })
-}
-const testObjects = () => {
-    test = [];
-    for (let index = 0; index < 20; index++) {
-        const randomNumber1 = randomNumber([0,200_000]);
-        const randomNumber2 = randomNumber([20,80]);
-        test.push({
-            age: randomNumber2,
-            salary: randomNumber1
-        })
-    }
-    return test;
-}
+import { useState, useEffect } from 'react'
 
 const validateArrayData = data => {
     // Can't sort data that isn't an array
@@ -41,12 +19,12 @@ const validateArrayData = data => {
     return dataType;
 }
 
-const findCompareFunctional = ( dataType, catergory, sampleData ) => {
+const findCompareFunctional = ( dataType, category, sampleData ) => {
 
     let compareFunctional;
 
     switch(dataType){
-        case 'string': // do nothing sort will automatically sort strings alphabetically  
+        case 'string': 
             compareFunctional = category => {
                 if (category) {
                     return (a,b) => a[category].localeCompare(b[category])
@@ -59,17 +37,21 @@ const findCompareFunctional = ( dataType, catergory, sampleData ) => {
             //? we'll assume that the category is a path to the data to sort
             //? hence no need to keep recursively calling this
             //? typeof(sampleData[category]) won't be an object
-            compareFunctional = findCompareFunctional(typeof(sampleData[catergory]));
+            console.log(category);
+            console.log(typeof(sampleData[category]));
+            compareFunctional = findCompareFunctional(typeof(sampleData[category]));
             break;
-        case 'number': compareFunctional = category => {
-            if (category) {
-                return (a,b) => a[category] - b[category]
-            } else {
-                return (a,b) => a - b
+        case 'number': 
+            compareFunctional = category => {
+                if (category) {
+                    return (a,b) => a[category] - b[category]
+                } else {
+                    return (a,b) => a - b
+                }
             }
-        }
             break;
-        case 'boolean': compareFunctional = category => {
+        case 'boolean': 
+            compareFunctional = category => {
                 if (category) {
                     return (a,b) => {
                         a = a? 1:0
@@ -83,7 +65,7 @@ const findCompareFunctional = ( dataType, catergory, sampleData ) => {
                         return a - b
                     }
                 }
-        }
+            }
             break;
         default: throw new Error(
             'An unsupported datatype was sent to the sort function',
@@ -103,13 +85,13 @@ const filter = () => {
  * 
  * @param  {Array<any>} data          - data to sort
  * @param  {String}     [catergory]   - category to sort by
- * @param  {Boolean}    [isAscending] - to sort catergory in ascedning or descending order
+ * @param  {Boolean}    [isAscending] - to sort catergory in ascending or descending order
  * @return {Array<any>}               - sorted data
  */
 const sort = (data, isAscending, category) => {
     // check that the array is sortable
     const dataType = validateArrayData(data);
-
+    console.log(dataType);
     // if undefined set it to true
     isAscending = isAscending === undefined ? true : isAscending;
 
@@ -130,27 +112,22 @@ const sort = (data, isAscending, category) => {
 }
 
 
+
 /**
  * 
  */
-// function useArrange(initalData){
+function useArrange(){
+    /**
+     * this function sorts and filters data
+     */
+    const sortAndFilterData = (data, isAscending, category) => {
+        // const filteredData = filter(data);
+        const sortedData = sort(data, isAscending, category);
 
-//     const [data, setData] = useState(initalData);
+        return sortedData
+    }
 
-//     /**
-//      * this function sorts and filters data
-//      */
-//     const arrangeData = () => {
-//         const filteredData = filter(data);
-//         constsortedAndFilteredData = sort(filteredData);
+    return sortAndFilterData
+}
 
-//         return sortedAndFilteredData
-//     }
-
-//     useEffect(() => { 
-//         setData()
-//     },[])
-
-//     return [data, setData, arrangeData ]
-
-// }
+export { useArrange };

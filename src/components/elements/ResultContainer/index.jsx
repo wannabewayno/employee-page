@@ -1,7 +1,7 @@
-import React, { cloneElement } from 'react';
+import React, { cloneElement, useState, useEffect } from 'react';
 import './style.css';
 
-const ResultContainer = ({ data, children }) => {
+const ResultContainer = ({ results, children, liftUpState }) => {
 
     const errorInfo = 'The ResultContainer should wrap a template component used to render the data it receives'
     if (!children) {
@@ -11,20 +11,16 @@ const ResultContainer = ({ data, children }) => {
         console.error('Too many child elements in the ResultContainer:', errorInfo)
     }
 
-    /**
-     * Generates a React element list from an array of data
-     * @param {Array} data 
-     */
-    const renderData = data => {
-        return data.map(data => {
-           return cloneElement(children,{ employee: data, key: data.id })
-        })
-    }
+    const [data, setData] = useState(results);
+
+    useEffect(()=>liftUpState(data,setData),[]);
+    useEffect(() => setData(results),[results]);
+    useEffect(() => console.log(data),[data]);
 
     return (
         <section className='ResultContainer'>
             <ul>
-                {renderData(data)}
+                {data.map(dataItem => cloneElement(children,{ data:dataItem, key: dataItem.id }))}
             </ul>
         </section>
     )

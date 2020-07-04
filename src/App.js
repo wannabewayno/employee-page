@@ -8,16 +8,46 @@ import SearchBar from './components/lib/inputs/SearchBar';
 import Container from './components/lib/containers/container';
 import { generateData } from './db/data';
 import Employee from './components/lib/listElements/employee';
+import { useArrange } from './sort.js'
 
 function App() {
 
   const [employees, setEmployees] = useState([]);
+  const [containerState, setContainerState] = useState({});
+  // const [data, setData] = useState(employees);
+  const arrangeData = useArrange()
 
   useEffect( () => {
     setEmployees(generateData(10));
   }, [])
 
-  const formSubmit = formState => console.log(formState)
+  useEffect (() => console.log(employees),[employees])
+
+  const formSubmit = formState => {
+    console.log(formState);
+    const { sort } = formState;
+    setEmployees(arrangeData(employees,true,sort));
+    console.log(employees);
+    console.log(containerState);
+    containerState.setStateFn(employees)
+    console.log(containerState.stateValue)
+  }
+
+  function liftUpState(state,setState){
+    setContainerState({stateValue:state,setStateFn:setState});
+  }
+
+  const sortDropDownOptions   = [
+    {display:'Name',value:'name'},
+    {display:'Job Title',value:'role'},
+    {display:'Department',value:'department'}
+  ]
+
+  const filterDropDownOptions = [ 
+    {display:'Name',value:'name'},
+    {display:'Job Title',value:'role'},
+    {display:'Department',value:'department'}
+  ]
 
   return (
     <main>
@@ -26,13 +56,13 @@ function App() {
       	<FormContainer onSubmit={formSubmit}>
       	  <SearchBar name='searchBar'/>
       	  <InlineContainer gap='1rem' minWidth='75px'>
-      	  	<Dropdown options={['option1','option2','option3','option4']} name='filter'/>
-      	  	<Dropdown options={['option1','option2','option3','option4']} name='sort'/>
+      	  	<Dropdown options={filterDropDownOptions} name='filter'/>
+      	  	<Dropdown options={sortDropDownOptions} name='sort'/>
       	  </InlineContainer>
           <button type='submit'>CLICK ME</button>
       	</FormContainer>
       </Container>
-      <ResultContainer data={employees}>
+      <ResultContainer results={employees} liftUpState={liftUpState}>
         <Employee/>
       </ResultContainer>
     </main>
