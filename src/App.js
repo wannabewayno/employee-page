@@ -12,24 +12,21 @@ import { useArrange } from './sort.js'
 
 function App() {
 
-  const [employees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState(generateData(10));
   const [containerState, setContainerState] = useState({});
   // const [data, setData] = useState(employees);
   const arrangeData = useArrange()
-
-  useEffect( () => {
-    setEmployees(generateData(10));
-  }, [])
 
   useEffect (() => console.log(employees),[employees])
 
   const formSubmit = formState => {
     console.log(formState);
     const { sort } = formState;
-    setEmployees(arrangeData(employees,true,sort));
+    const employeesClone = JSON.parse(JSON.stringify(employees))
+    containerState.setStateFn(arrangeData(employeesClone,true,sort));
     console.log(employees);
     console.log(containerState);
-    containerState.setStateFn(employees)
+    // containerState.setStateFn(employees)
     console.log(containerState.stateValue)
   }
 

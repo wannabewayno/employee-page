@@ -14,8 +14,8 @@ const ResultContainer = ({ results, children, liftUpState }) => {
     const [data, setData] = useState(results);
 
     useEffect(()=>liftUpState(data,setData),[]);
-    useEffect(() => setData(results),[results]);
-    useEffect(() => console.log(data),[data]);
+    // useEffect(() => setData(results),[results]);
+    // useEffect(() => console.log(data),[data]);
 
     return (
         <section className='ResultContainer'>
