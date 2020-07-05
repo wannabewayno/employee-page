@@ -37,8 +37,6 @@ const findCompareFunctional = ( dataType, category, sampleData ) => {
             //? we'll assume that the category is a path to the data to sort
             //? hence no need to keep recursively calling this
             //? typeof(sampleData[category]) won't be an object
-            console.log(category);
-            console.log(typeof(sampleData[category]));
             compareFunctional = findCompareFunctional(typeof(sampleData[category]));
             break;
         case 'number': 
@@ -91,7 +89,7 @@ const filter = () => {
 const sort = (data, isAscending, category) => {
     // check that the array is sortable
     const dataType = validateArrayData(data);
-    console.log(dataType);
+   
     // if undefined set it to true
     isAscending = isAscending === undefined ? true : isAscending;
 
