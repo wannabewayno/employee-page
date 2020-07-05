@@ -13,7 +13,7 @@ const generateEmail = (fullName) => {
 }
 
 const generateSalary = range => {
-    return Math.floor(Math.random()*(range[1] - range[0]) + range[0]);
+    return Math.round((Math.random()*(range[1] - range[0]) + range[0])/1000)*1000;
 }
 
 export const generateData = N => {
