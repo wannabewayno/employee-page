@@ -62,10 +62,10 @@ function App() {
       	<FormContainer onSubmit={formSubmit}>
       	  <SearchBar name='searchBar'/>
       	  <InlineContainer gap='1rem' minWidth='75px'>
-      	  	<Dropdown options={filterDropDownOptions} name='filter'/>
-      	  	<InlineContainer gap='0.5rem' minWidth='50px'>
-      	  		<Dropdown options={sortDropDownOptions} name='sort'/>
-      	  		<Dropdown options={isAscendingDropDownOptions} name='isAscending'/>
+      	  	<Dropdown options={filterDropDownOptions} name={{id:'filter',display:'Filter by'}}/>
+      	  	<InlineContainer gap='0.5rem' minWidth='85px'>
+      	  		<Dropdown options={sortDropDownOptions} name={{id:'category',display:'Sort by'}}/>
+      	  		<Dropdown options={isAscendingDropDownOptions} name={{id:'isAscending',display:'Order'}}/>
       	  	</InlineContainer>
       	  </InlineContainer>
           <button type='submit'>CLICK ME</button>

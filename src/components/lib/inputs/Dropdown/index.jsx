@@ -14,20 +14,21 @@ const Dropdown = ({ name, options, handleliftup }) => {
     const [ dropDownValue, setdropDownValue ] = useState(options[0].value)
 
     useEffect(()=>{
-        handleliftup({stateName:name,value:dropDownValue})
+        handleliftup({stateName:name.id,value:dropDownValue})
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[dropDownValue])
     
 
 
     const handleChange = event => {
+        console.log(event.target.value);
         setdropDownValue(event.target.value)
     }
 
     return (
         <div className='dropdown'>
-            <label htmlFor={name}>{name}</label>
-            <select name={name} value={dropDownValue} onChange={handleChange}>
+            <label htmlFor={name}>{name.display}</label>
+            <select name={name.id} value={dropDownValue} onChange={handleChange}>
                 {options.map(({display, value}) => { 
                     return <option value={value} key={uuidv4()}>{display}</option>
                     })
