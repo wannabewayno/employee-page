@@ -8,19 +8,20 @@ import SearchBar from './components/lib/inputs/SearchBar';
 import Container from './components/lib/containers/container';
 import { generateData } from './db/data';
 import Employee from './components/lib/listElements/employee';
-import { useArrange } from './sort.js'
+import { useArrange } from './db/sortAndFilterData.js'
 
 function App() {
 
   // set our initial state with a generated array
-  const [employees, setEmployees] = useState(generateData(10));
-  // 
-  const [liftedStates, setLiftedStates] = useState({});
+  const [ employees ] = useState(generateData(10));
+
+  // define a state to control all liftedUpStates from child containers
+  const [ liftedStates, setLiftedStates ] = useState({});
+
   // call upon a custom hook to sort data
   const arrangeData = useArrange()
 
-  useEffect (() => console.log(employees),[employees])
-
+  //define from submit
   const formSubmit = formState => {
     console.log(formState);
     const { sort } = formState;
