@@ -24,15 +24,16 @@ function App() {
   const formSubmit = formState => {
     console.log(formState);
     const { sort } = formState;
-    data.setState(arrangeData([...employees],true,sort));
+    liftedStates.setResultContainerData(arrangeData([...employees],true,sort));
   }
 
   // define a liftUpState function for the ResultContainer
   function liftUpState(stateName,stateValue,setStateFunction){
-    state = {}
-    state.stateName = stateValue;
-    state[`set${stateName.slice(0,1).toUpperCase()}${stateName.slice(1)}`]
-    setLiftedStates({state,setState});
+    const addLiftedState = {}
+    addLiftedState[stateName] = stateValue
+    console.log(`set${stateName.slice(0,1).toUpperCase()}${stateName.slice(1)}`);
+    addLiftedState[`set${stateName.slice(0,1).toUpperCase()}${stateName.slice(1)}`] = setStateFunction
+    setLiftedStates({...liftedStates, ...addLiftedState});
   }
 
   const sortDropDownOptions   = [

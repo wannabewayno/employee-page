@@ -33,7 +33,7 @@ const ResultContainer = ({ results, children, liftUpState }) => {
     return (
         <section className='ResultContainer'>
             <ul>
-                {data.map(dataItem => cloneElement(children,{ data:dataItem, key: dataItem.id }))}
+                {resultContainerData.map(dataItem => cloneElement(children,{ data:dataItem, key: dataItem.id }))}
             </ul>
         </section>
     )
