@@ -25,7 +25,7 @@ export const generateData = N => {
             id: uuidv4(),
             name: fullName,
             role: faker.name.title(),
-            phone: faker.phone.phoneNumber(),
+            salary: generateSalary([40_000,160_000]),
             email: generateEmail(fullName),
             image: `https://i.pravatar.cc/200img=${randomNumber}`,
             department: faker.commerce.department()
