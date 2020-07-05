@@ -51,8 +51,8 @@ function App() {
   ]
 
   const isAscendingDropDownOptions = [
-    {display:'Ascending',value:true},
-    {display:'Descending',value:false}
+    {display:'Ascending',value: true},
+    {display:'Descending',value: false}
   ]
 
   return (
