@@ -50,6 +50,11 @@ function App() {
     {display:'Department',value:'department'}
   ]
 
+  const isAscendingDropDownOptions = [
+    {display:'Ascending',value:true},
+    {display:'Descending',value:false}
+  ]
+
   return (
     <main>
       <Nav/>
@@ -58,7 +63,10 @@ function App() {
       	  <SearchBar name='searchBar'/>
       	  <InlineContainer gap='1rem' minWidth='75px'>
       	  	<Dropdown options={filterDropDownOptions} name='filter'/>
-      	  	<Dropdown options={sortDropDownOptions} name='sort'/>
+      	  	<InlineContainer gap='0.5rem' minWidth='50px'>
+      	  		<Dropdown options={sortDropDownOptions} name='sort'/>
+      	  		<Dropdown options={isAscendingDropDownOptions} name='isAscending'/>
+      	  	</InlineContainer>
       	  </InlineContainer>
           <button type='submit'>CLICK ME</button>
       	</FormContainer>
