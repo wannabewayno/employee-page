@@ -31,7 +31,6 @@ function App() {
   function liftUpState(stateName,stateValue,setStateFunction){
     const addLiftedState = {}
     addLiftedState[stateName] = stateValue
-    console.log(`set${stateName.slice(0,1).toUpperCase()}${stateName.slice(1)}`);
     addLiftedState[`set${stateName.slice(0,1).toUpperCase()}${stateName.slice(1)}`] = setStateFunction
     setLiftedStates({...liftedStates, ...addLiftedState});
   }
