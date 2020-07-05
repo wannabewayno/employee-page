@@ -9,11 +9,12 @@ import Container from './components/lib/containers/container';
 import { generateData } from './db/data';
 import Employee from './components/lib/listElements/employee';
 import { useArrange } from './db/sortAndFilterData.js'
+import constructConditions from'./db/constructConditions';
 
 function App() {
 
   // set our initial state with a generated array
-  const [ employees ] = useState(generateData(10));
+  const [ employees ] = useState(generateData(20));
 
   // define a state to control all liftedUpStates from child containers
   const [ liftedStates, setLiftedStates ] = useState({});
@@ -24,8 +25,8 @@ function App() {
   //define from submit
   const formSubmit = formState => {
     console.log(formState);
-    const { sort } = formState;
-    liftedStates.setResultContainerData(arrangeData([...employees],{isAscending:true,category:sort}));
+    const { sortConditions, filterConditions } = constructConditions(formState);
+    liftedStates.setResultContainerData(arrangeData([...employees], sortConditions ));
   }
 
   // define a liftUpState function for the ResultContainer
