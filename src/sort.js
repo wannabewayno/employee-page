@@ -74,11 +74,6 @@ const findCompareFunctional = ( dataType, category, sampleData ) => {
     return compareFunctional
 }
 
-const filter = () => {
-    const filteredData = '';
-    return filteredData
-}
-
 /**
  * 
  * @param  {Array<any>} data          - data to sort
@@ -109,6 +104,28 @@ const sort = (data, isAscending, category) => {
     return isAscending? sortedData : sortedData.reverse()  
 }
 
+const filter = (data, filter) => {
+    /* filter will look like:
+        filter = {
+            query:<String> //from SearchBar
+            category:{
+                type:<String> // from filter category
+                threshold:{   
+                    upper:<Number> // from a number input
+                    lower:<Number> // from a number input
+                }
+        }
+    */
+    // two cases:
+        // case 1: filter via a string
+            // search all catergories via a regex search. 
+            // if any caterogoies return a match return the item
+        // case 2: filter via a catergory
+            // which will have two cases.... only return results of type category
+            // and only return results of type catergory above a threshold.
+    const filteredData = '';
+    return filteredData
+}
 
 
 /**
