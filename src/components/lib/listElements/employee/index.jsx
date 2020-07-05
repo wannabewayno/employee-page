@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 
 const Employee = ({ data }) => {
-const { name, role, email, department, phone, image } = data;
+const { name, role, email, department, salary, image } = data;
 
     return (
         <li className='listEmployee'>
@@ -14,7 +14,7 @@ const { name, role, email, department, phone, image } = data;
                         <hgroup>
                             <h6>Department: {department}</h6>
                             <h6>Email: {email}</h6>            	    	
-                            <h6>Extension: {phone}</h6>
+                            <h6>Salary: {salary}</h6>
                         </hgroup>  
                     </section>
                     <div className='colourTab'></div>

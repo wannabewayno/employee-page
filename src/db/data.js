@@ -12,8 +12,8 @@ const generateEmail = (fullName) => {
     return fullName.join('.') + emailSuffix[Math.floor(Math.random()*emailSuffix.length)];
 }
 
-const generateSalary = (range) => {
-    return Math.floor(Math.random()*(range[2] - range[1]) + range[1])
+const generateSalary = range => {
+    return Math.floor(Math.random()*(range[1] - range[0]) + range[0]);
 }
 
 export const generateData = N => {
