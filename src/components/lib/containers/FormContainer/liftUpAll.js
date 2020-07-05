@@ -20,4 +20,4 @@ const liftUpAll = (children,handleliftup) => {
     })
 }
 
-export { liftUpAll };
+export default liftUpAll ;

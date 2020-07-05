@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './style.css';
-import { liftUpAll } from './liftUpAll'
+import liftUpAll from './liftUpAll'
 
 const FormContainer = ({ onSubmit, children }) => {
 
