@@ -81,7 +81,11 @@ const findCompareFunctional = ( dataType, category, sampleData ) => {
  * @return {Array<any>}               - sorted data
  */
 const sort = (data, conditions) => {
-    const { isAscending, category } = conditions 
+    if (!conditions) {
+        return data;
+    }
+    
+    let { isAscending, category } = conditions 
     // check that the array is sortable
     const dataType = validateArrayData(data);
    
@@ -98,19 +102,21 @@ const sort = (data, conditions) => {
         compareFunction = compareFunctional();
     }
 
-    const sortedData = data.sort(compareFunction);
+    data = data.sort(compareFunction);
 
     // reverse the array if necessary and return it
-    return isAscending? sortedData : sortedData.reverse()  
+    return isAscending? data : data.reverse()  
 }
 
 
 
 const filter = (data, conditions) => {
-    const { query, category } = conditions
+        if (!conditions){
+            return data
+        }
         // case 1: filter via a string
-        if (query){
-            const re = new RegExp(filter.query,'gi');
+        if (conditions.query){
+            const re = new RegExp(conditions.query,'gi');
 
             data = data.filter(item => {
 
@@ -136,9 +142,9 @@ const filter = (data, conditions) => {
         }
 
         // case 2: filter via a catergory // will need to check if a catergory can be passed before hand
-        if (category){
+        if (conditions.category){
 
-            const { category, type, threshold } = category
+            const { category, type, threshold } = conditions.category
 
             data = data.filter(item => {
 
@@ -191,13 +197,13 @@ function gaurdType(value,type) {
     if (negation){
         return  () => { 
             if ( typeof(value) !== type.slice(1)) {
-                return new Error(`${value} must be: ${type}`) 
+                return // new Error(`${value} must be: ${type}`) 
             } 
         }
     } else {
         return  () => { 
             if ( typeof(value) === type ) {
-                return new Error(`${value} can't be: ${type}`) 
+                return // new Error(`${value} can't be: ${type}`) 
             } 
         }
     }

@@ -25,7 +25,7 @@ function App() {
   const formSubmit = formState => {
     console.log(formState);
     const { sort } = formState;
-    liftedStates.setResultContainerData(arrangeData([...employees],true,sort));
+    liftedStates.setResultContainerData(arrangeData([...employees],{isAscending:true,category:sort}));
   }
 
   // define a liftUpState function for the ResultContainer
@@ -39,7 +39,8 @@ function App() {
   const sortDropDownOptions   = [
     {display:'Name',value:'name'},
     {display:'Job Title',value:'role'},
-    {display:'Department',value:'department'}
+    {display:'Department',value:'department'},
+    {display:'Salary',value:'salary'}
   ]
 
   const filterDropDownOptions = [ 

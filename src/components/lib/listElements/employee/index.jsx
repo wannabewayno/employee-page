@@ -14,7 +14,7 @@ const { name, role, email, department, salary, image } = data;
                         <hgroup>
                             <h6>Department: {department}</h6>
                             <h6>Email: {email}</h6>            	    	
-                            <h6>Salary: {salary}</h6>
+                            <h6>Salary: ${salary}</h6>
                         </hgroup>  
                     </section>
                     <div className='colourTab'></div>
