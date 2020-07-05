@@ -15,7 +15,7 @@ function App() {
   // set our initial state with a generated array
   const [employees, setEmployees] = useState(generateData(10));
   // 
-  const [data, setData] = useState({});
+  const [liftedStates, setLiftedStates] = useState({});
   // call upon a custom hook to sort data
   const arrangeData = useArrange()
 
@@ -27,9 +27,12 @@ function App() {
     data.setState(arrangeData([...employees],true,sort));
   }
 
-  //
-  function liftUpState(state,setState){
-    setData({state,setState});
+  // define a liftUpState function for the ResultContainer
+  function liftUpState(stateName,stateValue,setStateFunction){
+    state = {}
+    state.stateName = stateValue;
+    state[`set${stateName.slice(0,1).toUpperCase()}${stateName.slice(1)}`]
+    setLiftedStates({state,setState});
   }
 
   const sortDropDownOptions   = [

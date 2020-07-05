@@ -18,13 +18,13 @@ const ResultContainer = ({ results, children, liftUpState }) => {
         console.error('Too many child elements in the ResultContainer:', errorInfo)
     }
 
-    const [data, setData] = useState(results);
+    const [resultContainerData, setResultContainerData] = useState(results);
 
     //we're using the liftUpState function make the setData function available to App.js
     useEffect(() => {
         // if a liftUpState function was passed as a prop, call it
         if(liftUpState){
-            liftUpState(data,setData)
+            liftUpState('resultContainerData',resultContainerData,setResultContainerData)
         }
         //other wise do nothing, it won't break anything
     },[]);
