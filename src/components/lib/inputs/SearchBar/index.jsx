@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './style.css'; 
 
 const SearchBar = ({ name, handleliftup }) => {
-
+    console.log(name);
     if (!handleliftup){
         handleliftup = () => console.warn(
             "SearchBar is not sharing it's state with the container!",
@@ -19,12 +19,13 @@ const SearchBar = ({ name, handleliftup }) => {
 
     useEffect(()=>{
         // makes searchValue available to it's container
-        handleliftup({stateName:name,value:searchValue})
+        handleliftup({stateName:name.id,value:searchValue})
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[searchValue])
 
     return(
         <div className='search-bar'>
+            {name.display?<label>{name.display}</label>:null}
             <input type='text' value={searchValue} placeholder="search..." onChange={event => handleSearchInput(event)} />
             <div>
                 <img src="./images/icons/magnifying-glass.png" alt="search-icon"/>

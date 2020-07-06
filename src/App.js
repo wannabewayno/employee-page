@@ -60,15 +60,12 @@ function App() {
       <Nav/>
       <Container>
       	<FormContainer onSubmit={formSubmit}>
-      	  <SearchBar name='query'/>
+      	  <SearchBar name={{id:'query'}}/>
       	  <InlineContainer gap='1rem' minWidth='75px'>
-      	  	<Dropdown options={filterDropDownOptions} name={{id:'filterCategory',display:'Filter by'}}/>
-      	  	<InlineContainer gap='0.5rem' minWidth='85px'>
-      	  		<Dropdown options={sortDropDownOptions} name={{id:'category',display:'Sort by'}}/>
-      	  		<Dropdown options={isAscendingDropDownOptions} name={{id:'isAscending',display:'Order'}}/>
-      	  	</InlineContainer>
+            <Dropdown options={sortDropDownOptions} name={{id:'category',display:'Sort by'}}/>
+            <Dropdown options={isAscendingDropDownOptions} name={{id:'isAscending',display:'Order'}}/>
       	  </InlineContainer>
-          <button type='submit'>CLICK ME</button>
+          <button type='submit'>Sort Data</button>
       	</FormContainer>
       </Container>
       <ResultContainer results={employees} liftUpState={liftUpState}>

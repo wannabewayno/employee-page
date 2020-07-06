@@ -82,7 +82,7 @@ const findCompareFunctional = ( dataType, category, sampleData ) => {
  * @return {Array<any>}               - sorted data
  */
 const sort = (data, conditions) => {
-    if (!conditions) {
+    if (!conditions||data.length === 0 || !data) {
         return data;
     }
 
