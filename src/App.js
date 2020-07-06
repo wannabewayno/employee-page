@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Nav from './components/elements/Nav';
 import FormContainer from './components/lib/containers/FormContainer';
 import Dropdown from './components/lib/inputs/Dropdown';
-import ResultContainer from './components/elements/ResultContainer';
+import ResultContainer from './components/lib/containers/ResultContainer';
 import InlineContainer  from './components/lib/containers/flex/InlineContainer';
 import SearchBar from './components/lib/inputs/SearchBar';
 import Container from './components/lib/containers/container';
