@@ -5,7 +5,7 @@ function filter(data, conditions){
     // case 1: filter via a string
     if (conditions.query){
         const re = new RegExp(conditions.query,'gi');
-
+        
         data = data.filter(item => {
 
             const matches = [];
@@ -13,7 +13,7 @@ function filter(data, conditions){
             switch(typeof(item)) {
                 case'object':
                     for (const key in item) {
-                        if(item[key] === 'string') {
+                        if(typeof(item[key]) === 'string') {
                             matches.push(...item[key].match(re)||[])
                         } 
                     }
@@ -28,7 +28,7 @@ function filter(data, conditions){
             return matches.length > 0 ? true : false
         })
     }
-
+    console.log(data);
     // case 2: filter via a catergory // will need to check if a catergory can be passed before hand
     if (conditions.category){
 
@@ -44,7 +44,7 @@ function filter(data, conditions){
             }
         })
     }
-
+    console.log(data);
     return data
 }
 

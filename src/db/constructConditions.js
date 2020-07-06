@@ -5,9 +5,8 @@
  * @return {Object} - and object of objects { sortConditions, filterConditions };
  */
 function constructConditions (formData) {
-    const { isAscending, category } = formData
-    const filterConditions = {}
-
+    const { isAscending, category, query } = formData
+    const filterConditions = { query }
     const sortConditions = { isAscending, category };
     return { sortConditions, filterConditions }
 }

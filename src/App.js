@@ -26,7 +26,7 @@ function App() {
   const formSubmit = formState => {
     console.log(formState);
     const { sortConditions, filterConditions } = constructConditions(formState);
-    liftedStates.setResultContainerData(arrangeData([...employees], sortConditions ));
+    liftedStates.setResultContainerData(arrangeData([...employees], sortConditions, filterConditions ));
   }
 
   // define a liftUpState function for the ResultContainer
@@ -60,9 +60,9 @@ function App() {
       <Nav/>
       <Container>
       	<FormContainer onSubmit={formSubmit}>
-      	  <SearchBar name='searchBar'/>
+      	  <SearchBar name='query'/>
       	  <InlineContainer gap='1rem' minWidth='75px'>
-      	  	<Dropdown options={filterDropDownOptions} name={{id:'filter',display:'Filter by'}}/>
+      	  	<Dropdown options={filterDropDownOptions} name={{id:'filterCategory',display:'Filter by'}}/>
       	  	<InlineContainer gap='0.5rem' minWidth='85px'>
       	  		<Dropdown options={sortDropDownOptions} name={{id:'category',display:'Sort by'}}/>
       	  		<Dropdown options={isAscendingDropDownOptions} name={{id:'isAscending',display:'Order'}}/>
