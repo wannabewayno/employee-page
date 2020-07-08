@@ -14,6 +14,7 @@ import OnOnSwitch from './components/lib/buttons/switches/OnOnSwitch';
 import DropDownContainer from './components/lib/containers/DropDownContainer'
 import { OnOnSwitchOptions, sortDropDownOptions, isAscendingDropDownOptions, filterDropDownOptions } from './lib/formOptions'
 import SalaryFilter from './components/elements/SalaryFilter'
+import { findAllByRole } from '@testing-library/react';
 
 function App() {
 
@@ -37,6 +38,12 @@ function App() {
 
   }
 
+  function constructFilterValue(option, name){
+    return { category: name.id, type:option.value }
+  }
+
+  const constructSortValue = option => option.value
+
   // define a liftUpState function for the ResultContainer
   function liftUpState(stateName,stateValue,setStateFunction){
     const setStateFunctionName = `set${stateName.slice(0,1).toUpperCase()}${stateName.slice(1)}`
@@ -58,16 +65,17 @@ function App() {
           getSwitchTarget = {switchTarget}>
             <SearchBar name={{id:'query', display:'Filter by keyword', toDisplay:false}}/>
             <DropDownContainer name={{id:'dropDown container',display:'Filter by category'}} options={filterDropDownOptions}>
-              <Dropdown options={[{value:'Special facilities advisor',display:'Special facilities advisor'}]} name={{id:'role',display:'filter by job title'}}/>
-              <Dropdown options={[{value:'garden',display:'GARDEN'}]} name={{id:'department',display:'filter by department'}}/>
+              <Dropdown options={[{value:'Special facilities advisor',display:'Special facilities advisor'}]} name={{id:'role',display:'filter by job title'}} constructValue={constructFilterValue}/>
+              <Dropdown options={[{value:'Garden',display:'Garden'}]} name={{id:'department',display:'filter by department'}} constructValue={constructFilterValue}/>
               <SalaryFilter name={{id:'salary',display:'filter by salary'}}/>
             </DropDownContainer>
           </OnOnSwitch>
       	  
       	  <InlineContainer gap='1rem' minWidth='75px'>
-            <Dropdown options={sortDropDownOptions} name={{id:'category',display:'Sort by'}}/>
-            <Dropdown options={isAscendingDropDownOptions} name={{id:'isAscending',display:'Order'}}/>
+            <Dropdown options={sortDropDownOptions} name={{id:'sortCategory',display:'Sort by'}} constructValue={constructSortValue}/>
+            <Dropdown options={isAscendingDropDownOptions} name={{id:'isAscending',display:'Order'}} constructValue={constructSortValue}/>
       	  </InlineContainer>
+
           <button type='submit'>Refine Employees</button>
       	</FormContainer>
       </Container>

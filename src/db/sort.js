@@ -86,7 +86,7 @@ const sort = (data, conditions) => {
         return data;
     }
 
-    let { isAscending, category } = conditions 
+    let { isAscending, sortCategory } = conditions 
     // check that the array is sortable
     const dataType = validateArrayData(data);
    
@@ -94,11 +94,11 @@ const sort = (data, conditions) => {
     isAscending = isAscending === undefined ? true : booleanParse(isAscending);
 
     // assign a compare function
-    const compareFunctional = findCompareFunctional(dataType, category, data[0])
+    const compareFunctional = findCompareFunctional(dataType, sortCategory, data[0])
 
     let compareFunction
     if (dataType === 'object'){
-        compareFunction = compareFunctional(category);
+        compareFunction = compareFunctional(sortCategory);
     } else {
         compareFunction = compareFunctional();
     }

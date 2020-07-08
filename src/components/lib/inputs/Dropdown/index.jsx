@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './style.css';
 import { v4 as uuidv4 } from 'uuid';
 
-const Dropdown = ({ name, options, handleliftup }) => {
+const Dropdown = ({ name, options, handleliftup, constructValue }) => {
     
+    if(!constructValue) constructValue = value => value;
+
     if (!handleliftup){
         handleliftup = () => console.warn(
             "SearchBar is not sharing it's state with the container!",
@@ -11,7 +13,7 @@ const Dropdown = ({ name, options, handleliftup }) => {
             "Consider wrapping SearchBar in a FormContainer.")
     }
 
-    const [ dropDownValue, setdropDownValue ] = useState(options[0].value)
+    const [ dropDownValue, setdropDownValue ] = useState(constructValue(options[0],name))
 
     useEffect(()=>{
         handleliftup({stateName:name.id,value:dropDownValue})
@@ -29,8 +31,8 @@ const Dropdown = ({ name, options, handleliftup }) => {
         <div className='dropdown'>
             <label htmlFor={name}>{name.display}</label>
             <select name={name.id} value={dropDownValue} onChange={handleChange}>
-                {options.map(({display, value}) => { 
-                    return <option value={value} key={uuidv4()}>{display}</option>
+                {options.map( option => { 
+                    return <option value={constructValue(option,name)} key={uuidv4()}>{option.display}</option>
                     })
                 }
             </select>

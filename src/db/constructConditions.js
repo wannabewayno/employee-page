@@ -1,3 +1,5 @@
+import filter from "./filter";
+
 /**
  * Constructs sort and filter conditions from the submitted formData
  * 
@@ -5,11 +7,18 @@
  * @return {Object} - and object of objects { sortConditions, filterConditions };
  */
 function constructConditions (formData) {
-    const { isAscending, category, query, role, department, salary } = formData
-    const filterConditions = { query, role, department, salary }
-    
+    const { isAscending, sortCategory, role, department, salary } = formData
+    let { query } = formData
+    let filterCondition;
+    if (!query) query = '';
+    if (role) filterCondition = { category:{ ...role } }
+    if (department) filterCondition = { category:{ ...department }  }
+    if (salary) filterCondition = { category:{ ...salary } }
+
+    const filterConditions = { query, ...filterCondition }
     console.log(filterConditions);
-    const sortConditions = { isAscending, category };
+
+    const sortConditions = { isAscending, sortCategory };
     console.log(sortConditions);
 
     return { sortConditions, filterConditions }
