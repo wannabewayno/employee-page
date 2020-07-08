@@ -22,7 +22,9 @@ const Number = ({ name, handleliftup }) => {
         handleliftup({stateName:name.id,value:numberValue})
         // eslint-disable-next-line react-hooks/exhaustive-deps
         return () => handleliftup({stateName:name.id,toDelete:true})
-    },[numberValue])
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [numberValue])
 
     return(
         <div className='Number'>

@@ -12,7 +12,6 @@ import { useArrange } from './db/sortAndFilterData.js'
 import constructConditions from'./db/constructConditions';
 import OnOnSwitch from './components/lib/buttons/switches/OnOnSwitch';
 import DropDownContainer from './components/lib/containers/DropDownContainer'
-import Number from './components/lib/inputs/Number'
 import { OnOnSwitchOptions, sortDropDownOptions, isAscendingDropDownOptions, filterDropDownOptions } from './lib/formOptions'
 import SalaryFilter from './components/elements/SalaryFilter'
 

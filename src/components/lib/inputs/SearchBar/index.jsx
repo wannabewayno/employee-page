@@ -22,7 +22,9 @@ const SearchBar = ({ name, handleliftup }) => {
         handleliftup({stateName:name.id,value:searchValue})
         // eslint-disable-next-line react-hooks/exhaustive-deps
         return () => handleliftup({stateName:name.id,toDelete:true})
-    },[searchValue])
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [searchValue])
 
     return(
         <div className='search-bar'>

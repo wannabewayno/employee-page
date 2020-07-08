@@ -27,7 +27,9 @@ const ResultContainer = ({ results, children, liftUpState }) => {
             liftUpState('resultContainerData',resultContainerData,setResultContainerData)
         }
         //other wise do nothing, it won't break anything
-    },[]);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []);
    
 
     return (

@@ -17,7 +17,9 @@ const Dropdown = ({ name, options, handleliftup }) => {
         handleliftup({stateName:name.id,value:dropDownValue})
         // eslint-disable-next-line react-hooks/exhaustive-deps
         return () => handleliftup({stateName:name.id,toDelete:true})
-    },[dropDownValue])
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [dropDownValue])
     
     const handleChange = event => {
         setdropDownValue(event.target.value)

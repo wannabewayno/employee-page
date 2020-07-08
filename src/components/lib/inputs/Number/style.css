@@ -1,5 +1,10 @@
-.Number,.Number input {
+.Number {
     width:100%;
+    height:auto
+}
+
+.Number input {
+    width:fit-content;
     height:auto
 }
 

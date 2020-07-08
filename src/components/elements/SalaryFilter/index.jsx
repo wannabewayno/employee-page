@@ -19,11 +19,13 @@ function SalaryFilter ({name, handleliftup}) {
     },[salaryFilter])
 
     return (
-        <InlineContainer gap='1rem' minWidth='120px'>
-            <Number name={{display:'Upper threshold',id:'upper', toDisplay:true}} handleliftup={handleNumberInput}/>
-            <Number name={{display:'Lower threshold',id:'lower', toDisplay:true}} handleliftup={handleNumberInput}/>
-            <Number name={{display:'Must be',id:'exact', toDisplay:true}} handleliftup={handleNumberInput}/>
-        </InlineContainer>
+        <div className='SalaryFilter'>
+            <InlineContainer gap='1rem' minWidth='120px'>
+                <Number name={{display:'Salary Under',id:'upper', toDisplay:true}} handleliftup={handleNumberInput}/>
+                <Number name={{display:'Salary Above',id:'lower', toDisplay:true}} handleliftup={handleNumberInput}/>
+                <Number name={{display:'Salary must be',id:'exact', toDisplay:true}} handleliftup={handleNumberInput}/>
+            </InlineContainer>
+        </div>
     )
 }
 
