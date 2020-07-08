@@ -11,10 +11,10 @@ import Employee from './components/lib/listElements/employee';
 import { useArrange } from './db/sortAndFilterData.js'
 import constructConditions from'./db/constructConditions';
 import OnOnSwitch from './components/lib/buttons/switches/OnOnSwitch';
-import DropDownContainer from './components/lib/containers/DropDownContainer'
-import { OnOnSwitchOptions, sortDropDownOptions, isAscendingDropDownOptions, filterDropDownOptions } from './lib/formOptions'
-import SalaryFilter from './components/elements/SalaryFilter'
-import { findAllByRole } from '@testing-library/react';
+import DropDownContainer from './components/lib/containers/DropDownContainer';
+import { OnOnSwitchOptions, sortDropDownOptions, isAscendingDropDownOptions, filterDropDownOptions } from './lib/formOptions';
+import SalaryFilter from './components/elements/SalaryFilter';;
+import findDataOfType from './db/findDataOfType'
 
 function App() {
 
@@ -23,7 +23,8 @@ function App() {
 
   // define a state to control all liftedUpStates from child containers
   const [ liftedStates, setLiftedStates ] = useState({});
-
+  const [ roles, setRoles ] = useState({});
+  const [ departments, setDepartments ] = useState({});
   // call upon a custom hook to sort data
   const arrangeData = useArrange()
 
@@ -31,7 +32,16 @@ function App() {
   function formSubmit(formState){
     console.log(formState);
     const { sortConditions, filterConditions } = constructConditions(formState);
-    liftedStates.setResultContainerData(arrangeData([...employees], sortConditions, filterConditions ));
+    const filteredAndSortedData = arrangeData([...employees], sortConditions, filterConditions );
+    console.log(findDataOfType(filteredAndSortedData,'role'));
+    console.log(findDataOfType(filteredAndSortedData,'department'));
+    setRoles( findDataOfType(filteredAndSortedData,'role') );
+    setDepartments( findDataOfType(filteredAndSortedData,'role') );
+    liftedStates.setResultContainerData(filteredAndSortedData);
+  }
+
+  function reset(liftedStates){
+    liftedStates.setResultContainerData([...employees])
   }
 
   function switchTarget(target) {
@@ -60,6 +70,7 @@ function App() {
       <Nav/>
       <Container>
       	<FormContainer onSubmit={formSubmit}>
+
           <OnOnSwitch
           options = {OnOnSwitchOptions}
           getSwitchTarget = {switchTarget}>
@@ -76,12 +87,19 @@ function App() {
             <Dropdown options={isAscendingDropDownOptions} name={{id:'isAscending',display:'Order'}} constructValue={constructSortValue}/>
       	  </InlineContainer>
 
-          <button type='submit'>Refine Employees</button>
+          <div style={{textAlign:'center'}}>
+            <button type='submit'>Refine Employees</button>
+          </div>
+
       	</FormContainer>
       </Container>
+      <div style={{textAlign:'center'}}>
+        <button type='button' onClick={() => reset(liftedStates)}>All Employees</button>
+      </div>
       <ResultContainer results={employees} liftUpState={liftUpState}>
         <Employee/>
       </ResultContainer>
+      
     </main>
   );
 }

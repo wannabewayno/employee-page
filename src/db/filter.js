@@ -33,14 +33,9 @@ function filter(data, conditions){
     if (conditions.category){
 
         const { category, type, threshold } = conditions.category
-        console.log(category);
-        console.log(type);
-        console.log(threshold);
-
         
         data = data.filter(item => {
-            console.log(typeof(item[category]));
-            console.log(item[category]);
+            
             switch (typeof(item[category])){
                 case 'string':  return item[category] === type;
                 case 'number':  return testNumber(item[category],threshold);
