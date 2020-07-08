@@ -35,7 +35,8 @@ function filter(data, conditions){
         const { category, type, threshold } = conditions.category
         
         data = data.filter(item => {
-            
+            console.log(item[category]);
+            console.log(typeof(item[category]));
             switch (typeof(item[category])){
                 case 'string':  return item[category] === type;
                 case 'number':  return testNumber(item[category],threshold);
@@ -63,10 +64,10 @@ function testNumber(number,threshold){
     const { exact, lower, upper } = threshold;
 
     if (exact) {
-        return number === exact? true : false;
+        return number === Number(exact)
     } else {
-        if (lower) if (number < lower) return false;
-        if (upper) if (number > upper) return false;
+        if (lower) if (number < Number(lower)) return false;
+        if (upper) if (number > Number(upper)) return false;
         return true;
     }
 }

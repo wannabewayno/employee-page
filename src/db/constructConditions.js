@@ -1,5 +1,3 @@
-import filter from "./filter";
-
 /**
  * Constructs sort and filter conditions from the submitted formData
  * 
@@ -11,9 +9,16 @@ function constructConditions (formData) {
     let { query } = formData
     let filterCondition;
     if (!query) query = '';
-    if (role) filterCondition = { category:{ ...role } }
-    if (department) filterCondition = { category:{ ...department }  }
-    if (salary) filterCondition = { category:{ ...salary } }
+    if (role) filterCondition = { category:{ ...JSON.parse(role.trim()) } }
+    if (department) filterCondition = { category:{ ...JSON.parse(department) }  }
+    if (salary) {
+        const { upper, lower, exact } = salary;
+        if (exact === '') {
+            filterCondition = { category:{ category:'salary',threshold:{ upper, lower } } }
+        } else {
+            filterCondition = { category:{ category:'salary',threshold:{ exact } } }
+        }
+    }
 
     const filterConditions = { query, ...filterCondition }
     console.log(filterConditions);

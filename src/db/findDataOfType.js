@@ -6,7 +6,7 @@
  */
 function findDataOfType(data,type){
     const dataTypes = [ ...new Set(data.map(item => item[type])) ];
-    return dataTypes;
+    return dataTypes.sort();
 }
 
 export default findDataOfType;

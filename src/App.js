@@ -13,8 +13,8 @@ import constructConditions from'./db/constructConditions';
 import OnOnSwitch from './components/lib/buttons/switches/OnOnSwitch';
 import DropDownContainer from './components/lib/containers/DropDownContainer';
 import { OnOnSwitchOptions, sortDropDownOptions, isAscendingDropDownOptions, filterDropDownOptions } from './lib/formOptions';
-import SalaryFilter from './components/elements/SalaryFilter';;
-import findDataOfType from './db/findDataOfType'
+import SalaryFilter from './components/elements/SalaryFilter';
+import findDataOfType from './db/findDataOfType';
 
 function App() {
 
@@ -23,8 +23,8 @@ function App() {
 
   // define a state to control all liftedUpStates from child containers
   const [ liftedStates, setLiftedStates ] = useState({});
-  const [ roles, setRoles ] = useState({});
-  const [ departments, setDepartments ] = useState({});
+  const [ roles, setRoles ] = useState( findDataOfType(employees,'role') );
+  const [ departments, setDepartments ] = useState( findDataOfType(employees,'department') );
   // call upon a custom hook to sort data
   const arrangeData = useArrange()
 
@@ -33,10 +33,8 @@ function App() {
     console.log(formState);
     const { sortConditions, filterConditions } = constructConditions(formState);
     const filteredAndSortedData = arrangeData([...employees], sortConditions, filterConditions );
-    console.log(findDataOfType(filteredAndSortedData,'role'));
-    console.log(findDataOfType(filteredAndSortedData,'department'));
     setRoles( findDataOfType(filteredAndSortedData,'role') );
-    setDepartments( findDataOfType(filteredAndSortedData,'role') );
+    setDepartments( findDataOfType(filteredAndSortedData,'department') );
     liftedStates.setResultContainerData(filteredAndSortedData);
   }
 
@@ -49,7 +47,7 @@ function App() {
   }
 
   function constructFilterValue(option, name){
-    return { category: name.id, type:option.value }
+    return JSON.stringify({ category: name.id, type:option.value });
   }
 
   const constructSortValue = option => option.value
@@ -64,7 +62,6 @@ function App() {
     });
   }
 
-
   return (
     <main>
       <Nav/>
@@ -76,8 +73,8 @@ function App() {
           getSwitchTarget = {switchTarget}>
             <SearchBar name={{id:'query', display:'Filter by keyword', toDisplay:false}}/>
             <DropDownContainer name={{id:'dropDown container',display:'Filter by category'}} options={filterDropDownOptions}>
-              <Dropdown options={[{value:'Special facilities advisor',display:'Special facilities advisor'}]} name={{id:'role',display:'filter by job title'}} constructValue={constructFilterValue}/>
-              <Dropdown options={[{value:'Garden',display:'Garden'}]} name={{id:'department',display:'filter by department'}} constructValue={constructFilterValue}/>
+              <Dropdown options={roles.map(role => { return { value:role, display:role } })} name={{id:'role',display:'filter by job title'}} constructValue={constructFilterValue}/>
+              <Dropdown options={departments.map(department => { return {value:department, display:department} })} name={{id:'department',display:'filter by department'}} constructValue={constructFilterValue}/>
               <SalaryFilter name={{id:'salary',display:'filter by salary'}}/>
             </DropDownContainer>
           </OnOnSwitch>
