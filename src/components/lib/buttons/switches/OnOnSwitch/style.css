@@ -1,0 +1,13 @@
+.OnOnSwitch .switch-container {
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.switch-container .slider {
+    margin:0 3%;
+}
+
+.OnOnSwitch .element-container {
+    
+}

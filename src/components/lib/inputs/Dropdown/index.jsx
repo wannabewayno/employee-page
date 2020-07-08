@@ -16,6 +16,7 @@ const Dropdown = ({ name, options, handleliftup }) => {
     useEffect(()=>{
         handleliftup({stateName:name.id,value:dropDownValue})
         // eslint-disable-next-line react-hooks/exhaustive-deps
+        return () => handleliftup({stateName:name.id,toDelete:true})
     },[dropDownValue])
     
     const handleChange = event => {

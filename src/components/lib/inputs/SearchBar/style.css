@@ -37,3 +37,9 @@
 .search-bar input:focus input:active {
     outline:none;
 }
+
+.search-bar label {
+    display: block;
+    font-size: 90%;
+    margin-bottom:2%;
+}

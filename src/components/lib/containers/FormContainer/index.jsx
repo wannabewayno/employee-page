@@ -6,8 +6,11 @@ const FormContainer = ({ onSubmit, children }) => {
 
     const [ formState, setFormState ] = useState({});
 
-    const handleliftup = ({stateName, value}) => {
+    const handleliftup = ({stateName, value, toDelete}) => {
         formState[stateName] = value;
+        if (toDelete){
+            delete formState[stateName]
+        }
         setFormState(formState);
     }
     

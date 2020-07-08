@@ -10,6 +10,11 @@ import { generateData } from './db/data';
 import Employee from './components/lib/listElements/employee';
 import { useArrange } from './db/sortAndFilterData.js'
 import constructConditions from'./db/constructConditions';
+import OnOnSwitch from './components/lib/buttons/switches/OnOnSwitch';
+import DropDownContainer from './components/lib/containers/DropDownContainer'
+import Number from './components/lib/inputs/Number'
+import { OnOnSwitchOptions, sortDropDownOptions, isAscendingDropDownOptions, filterDropDownOptions } from './lib/formOptions'
+import SalaryFilter from './components/elements/SalaryFilter'
 
 function App() {
 
@@ -23,49 +28,48 @@ function App() {
   const arrangeData = useArrange()
 
   //define from submit
-  const formSubmit = formState => {
+  function formSubmit(formState){
     console.log(formState);
     const { sortConditions, filterConditions } = constructConditions(formState);
     liftedStates.setResultContainerData(arrangeData([...employees], sortConditions, filterConditions ));
   }
 
-  // define a liftUpState function for the ResultContainer
-  function liftUpState(stateName,stateValue,setStateFunction){
-    const addLiftedState = {}
-    addLiftedState[stateName] = stateValue
-    addLiftedState[`set${stateName.slice(0,1).toUpperCase()}${stateName.slice(1)}`] = setStateFunction
-    setLiftedStates({...liftedStates, ...addLiftedState});
+  function switchTarget(target) {
+
   }
 
-  const sortDropDownOptions   = [
-    {display:'Name',value:'name'},
-    {display:'Job Title',value:'role'},
-    {display:'Department',value:'department'},
-    {display:'Salary',value:'salary'}
-  ]
+  // define a liftUpState function for the ResultContainer
+  function liftUpState(stateName,stateValue,setStateFunction){
+    const setStateFunctionName = `set${stateName.slice(0,1).toUpperCase()}${stateName.slice(1)}`
+    setLiftedStates({
+      ...liftedStates,
+      [stateName]:stateValue,
+      [setStateFunctionName]:setStateFunction
+    });
+  }
 
-  const filterDropDownOptions = [ 
-    {display:'Name',value:'name'},
-    {display:'Job Title',value:'role'},
-    {display:'Department',value:'department'}
-  ]
-
-  const isAscendingDropDownOptions = [
-    {display:'Ascending',value: true},
-    {display:'Descending',value: false}
-  ]
 
   return (
     <main>
       <Nav/>
       <Container>
       	<FormContainer onSubmit={formSubmit}>
-      	  <SearchBar name={{id:'query'}}/>
+          <OnOnSwitch
+          options = {OnOnSwitchOptions}
+          getSwitchTarget = {switchTarget}>
+            <SearchBar name={{id:'query', display:'Filter by keyword', toDisplay:false}}/>
+            <DropDownContainer name={{id:'dropDown container',display:'Filter by category'}} options={filterDropDownOptions}>
+              <Dropdown options={[{value:'Special facilities advisor',display:'Special facilities advisor'}]} name={{id:'role',display:'filter by job title'}}/>
+              <Dropdown options={[{value:'garden',display:'GARDEN'}]} name={{id:'department',display:'filter by department'}}/>
+              <SalaryFilter name={{id:'salary',display:'filter by salary'}}/>
+            </DropDownContainer>
+          </OnOnSwitch>
+      	  
       	  <InlineContainer gap='1rem' minWidth='75px'>
             <Dropdown options={sortDropDownOptions} name={{id:'category',display:'Sort by'}}/>
             <Dropdown options={isAscendingDropDownOptions} name={{id:'isAscending',display:'Order'}}/>
       	  </InlineContainer>
-          <button type='submit'>Sort Data</button>
+          <button type='submit'>Refine Employees</button>
       	</FormContainer>
       </Container>
       <ResultContainer results={employees} liftUpState={liftUpState}>
