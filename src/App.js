@@ -71,12 +71,22 @@ function App() {
 
           <OnOnSwitch
           options = {OnOnSwitchOptions}>
+
             <SearchBar name={{id:'query', display:'Filter by keyword', toDisplay:false}}/>
             <DropDownContainer name={{id:'dropDown container',display:'Filter by category'}} options={filterDropDownOptions}>
-              <Dropdown options={roles.map(role => { return { value:role, display:role } })} name={{id:'role',display:'filter by job title'}} constructValue={constructFilterValue}/>
-              <Dropdown options={departments.map(department => { return {value:department, display:department} })} name={{id:'department',display:'filter by department'}} constructValue={constructFilterValue}/>
+              <Dropdown 
+              options={roles.map(role => { return { value:role, display:role } })}
+              name={{id:'role',display:'filter by job title'}}
+              constructValue={constructFilterValue}/>
+
+              <Dropdown 
+              options={departments.map(department => { return {value:department, display:department} })}
+              name={{id:'department',display:'filter by department'}}
+              constructValue={constructFilterValue}/>
+
               <SalaryFilter name={{id:'salary',display:'filter by salary'}}/>
             </DropDownContainer>
+            
           </OnOnSwitch>
       	  
       	  <InlineContainer gap='1rem' minWidth='75px'>
@@ -90,9 +100,13 @@ function App() {
 
       	</FormContainer>
       </Container>
+
       <div style={{textAlign:'center'}}>
-        {filteredEmployees.length===employees.length? undefined:<button type='button' onClick={() => reset(liftedStates)}>All Employees</button>}
+        {filteredEmployees.length === employees.length?
+        undefined:
+        <button type='button' onClick={() => reset(liftedStates)}>All Employees</button>}
       </div>
+
       <ResultContainer results={employees} liftUpState={liftUpState}>
         <Employee/>
       </ResultContainer>

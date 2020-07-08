@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import './style.css';
 
 /**
- * 
- * Renders additions
+ * Conditionaly renders children from a dropdown menu with the children's display name attributes
  * @param {Object} props  
  * @param {Array}  props.children - The components/elements that the container wraps  
  * @param {Array}  props.options  - options to display in the drop-down menu

@@ -1,6 +1,6 @@
 :root {
-    --listEmployeeHeight:100px;
-    --listEmployeeWidth:425px;
+    --listEmployeeWidth:90vw;
+    --listEmployeeHeight:calc(var(--listEmployeeWidth)/4);
 }
 
 .listEmployee main, .listEmployee section, .listEmployee hgroup {
@@ -13,6 +13,7 @@
 }
 
 .listEmployee .title, .listEmployee hgroup {
+    font-size: calc(var(--listEmployeeWidth)/24);
     margin:0 auto;
     text-align: center;
 }
@@ -40,7 +41,8 @@
 }
 
 .listEmployee .name {
-    margin-bottom:3%;
+    font-size: 120%;
+    margin-bottom:0%;
 }
 
 .listEmployee hgroup {
@@ -71,3 +73,9 @@
     height:100%;
     width:5%;
 }
+
+
+@media (min-width: 576px)  { :root { --listEmployeeWidth:425px; --listEmployeeHeight:100px; } }
+@media (min-width: 768px)  { { width:80%} }
+@media (min-width: 992px)  { { width:80%} }
+@media (min-width: 1200px) { { width:75%} }
