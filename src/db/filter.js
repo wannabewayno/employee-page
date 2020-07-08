@@ -28,15 +28,13 @@ function filter(data, conditions){
             return matches.length > 0 ? true : false
         })
     }
-    console.log(data);
+    
     // case 2: filter via a catergory // will need to check if a catergory can be passed before hand
     if (conditions.category){
 
         const { category, type, threshold } = conditions.category
         
         data = data.filter(item => {
-            console.log(item[category]);
-            console.log(typeof(item[category]));
             switch (typeof(item[category])){
                 case 'string':  return item[category] === type;
                 case 'number':  return testNumber(item[category],threshold);
@@ -45,7 +43,7 @@ function filter(data, conditions){
             }
         })
     }
-    console.log(data);
+ 
     return data
 }
 

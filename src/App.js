@@ -20,30 +20,31 @@ function App() {
 
   // set our initial state with a generated array
   const [ employees ] = useState(generateData(20));
+  const [ filteredEmployees, setFilteredEmployees ] = useState([...employees])
 
   // define a state to control all liftedUpStates from child containers
   const [ liftedStates, setLiftedStates ] = useState({});
   const [ roles, setRoles ] = useState( findDataOfType(employees,'role') );
   const [ departments, setDepartments ] = useState( findDataOfType(employees,'department') );
+
   // call upon a custom hook to sort data
   const arrangeData = useArrange()
 
   //define from submit
   function formSubmit(formState){
-    console.log(formState);
+
     const { sortConditions, filterConditions } = constructConditions(formState);
     const filteredAndSortedData = arrangeData([...employees], sortConditions, filterConditions );
+
     setRoles( findDataOfType(filteredAndSortedData,'role') );
     setDepartments( findDataOfType(filteredAndSortedData,'department') );
+    setFilteredEmployees(filteredAndSortedData)
+
     liftedStates.setResultContainerData(filteredAndSortedData);
   }
 
   function reset(liftedStates){
     liftedStates.setResultContainerData([...employees])
-  }
-
-  function switchTarget(target) {
-
   }
 
   function constructFilterValue(option, name){
@@ -69,8 +70,7 @@ function App() {
       	<FormContainer onSubmit={formSubmit}>
 
           <OnOnSwitch
-          options = {OnOnSwitchOptions}
-          getSwitchTarget = {switchTarget}>
+          options = {OnOnSwitchOptions}>
             <SearchBar name={{id:'query', display:'Filter by keyword', toDisplay:false}}/>
             <DropDownContainer name={{id:'dropDown container',display:'Filter by category'}} options={filterDropDownOptions}>
               <Dropdown options={roles.map(role => { return { value:role, display:role } })} name={{id:'role',display:'filter by job title'}} constructValue={constructFilterValue}/>
@@ -91,7 +91,7 @@ function App() {
       	</FormContainer>
       </Container>
       <div style={{textAlign:'center'}}>
-        <button type='button' onClick={() => reset(liftedStates)}>All Employees</button>
+        {filteredEmployees.length===employees.length? undefined:<button type='button' onClick={() => reset(liftedStates)}>All Employees</button>}
       </div>
       <ResultContainer results={employees} liftUpState={liftUpState}>
         <Employee/>

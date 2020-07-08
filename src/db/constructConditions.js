@@ -5,8 +5,10 @@
  * @return {Object} - and object of objects { sortConditions, filterConditions };
  */
 function constructConditions (formData) {
+    
     const { isAscending, sortCategory, role, department, salary } = formData
     let { query } = formData
+
     let filterCondition;
     if (!query) query = '';
     if (role) filterCondition = { category:{ ...JSON.parse(role.trim()) } }
@@ -21,10 +23,7 @@ function constructConditions (formData) {
     }
 
     const filterConditions = { query, ...filterCondition }
-    console.log(filterConditions);
-
     const sortConditions = { isAscending, sortCategory };
-    console.log(sortConditions);
 
     return { sortConditions, filterConditions }
 }
