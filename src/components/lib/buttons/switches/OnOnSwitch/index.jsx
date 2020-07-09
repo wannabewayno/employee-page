@@ -8,9 +8,8 @@ function OnOnSwitch ({ trackColour, sliderColour, textColour, label, getSwitchTa
 
     if (!getSwitchTarget){
         getSwitchTarget = () => console.warn(
-            "SearchBar is not sharing it's state with the container!",
-            "Can't use a form component not wrapped by a FormContainer.",
-            "Consider wrapping SearchBar in a FormContainer.")
+            "OnOnSwitch is not sharing it's target with it's container!",
+            "consider adding a 'liftUpState' function to the 'getSwitchTarget' prop")
     }
 
     const [ currentTarget, setCurrentTarget ] = useState('');
@@ -40,7 +39,8 @@ function OnOnSwitch ({ trackColour, sliderColour, textColour, label, getSwitchTa
                     <Switch 
                     getSwitchPosition = {switchPosition}
                     trackColour = {trackColour}
-                    sliderColour = {sliderColour}/>
+                    sliderColour = {sliderColour}
+                    />
                 </div>
                 <span
                 className='option-right'

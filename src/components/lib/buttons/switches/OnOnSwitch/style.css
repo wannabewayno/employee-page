@@ -11,3 +11,7 @@
 .OnOnSwitch .element-container {
     
 }
+
+.OnOnSwitch .option-left, .OnOnSwitch .option-right {
+    text-align: center;
+}
