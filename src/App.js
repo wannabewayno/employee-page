@@ -26,7 +26,8 @@ function App() {
 
   // define a state to control all liftedUpStates from child containers
   const [ liftedStates, setLiftedStates ] = useState({});
-  // states for roles and departments of data to be handled to dropdowns
+
+  // states for roles and departments to be handled to dropdowns
   const [ roles, setRoles ] = useState( findDataOfType(employees,'role') );
   const [ departments, setDepartments ] = useState( findDataOfType(employees,'department') );
 
@@ -49,7 +50,6 @@ function App() {
     liftedStates.setResultContainerData(filteredAndSortedData);
   }
 
-  
   function reset(liftedStates){
     setFilteredEmployees([...employees]);
     liftedStates.setResultContainerData([...employees]);

@@ -1,5 +1,9 @@
 // this file mimics results from an API call
 import { v4 as uuidv4 } from 'uuid';
+import findDataOfType from './findDataOfType';
+import generatePastel from '../lib/generatePastel';
+import randomNumberWithinRange from '../lib/randomNumberWithinRange';
+
 const faker = require('faker');
 
 const generateEmail = (fullName) => {
@@ -12,10 +16,6 @@ const generateEmail = (fullName) => {
     return fullName.join('.') + emailSuffix[Math.floor(Math.random()*emailSuffix.length)];
 }
 
-const generateSalary = range => {
-    return Math.round((Math.random()*(range[1] - range[0]) + range[0])/1000)*1000;
-}
-
 export const generateData = N => {
     const data = [];
     for (let index = 0; index < N ; index++) {
@@ -25,11 +25,27 @@ export const generateData = N => {
             id: uuidv4(),
             name: fullName,
             role: faker.name.title(),
-            salary: generateSalary([40_000,160_000]),
+            roleColour:'hsla(0,0,0%,0)',
+            salary: randomNumberWithinRange([30_000,250_000],1000),
             email: generateEmail(fullName),
             image: `https://i.pravatar.cc/200img=${randomNumber}`,
             department: faker.commerce.department()
         })
     }
+
+    // find all uniaue roles
+    const allRoles = findDataOfType(data,'role');
+
+    //for each role, generate a random pastel colour and associate it with that role
+    const roleColours = {}
+    allRoles.forEach(role => roleColours[role] = generatePastel());
+
+    data.map(item => {
+        const { role } = item
+        item.roleColour = roleColours[role];
+        return item 
+    })
+
     return data;
 }
+
