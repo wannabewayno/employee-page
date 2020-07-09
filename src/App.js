@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Nav from './components/elements/Nav';
+import Navatron from './components/lib/containers/nav/NavContainer/Navatron';
 import FormContainer from './components/lib/containers/FormContainer';
 import Dropdown from './components/lib/inputs/Dropdown';
 import ResultContainer from './components/lib/containers/ResultContainer';
@@ -18,14 +18,20 @@ import findDataOfType from './db/findDataOfType';
 
 function App() {
 
-  // set our initial state with a generated array
+  // initial employees with a generated array
   const [ employees ] = useState(generateData(20));
+
+  // stores the filtered employees after a user performs a query
   const [ filteredEmployees, setFilteredEmployees ] = useState([...employees])
 
   // define a state to control all liftedUpStates from child containers
   const [ liftedStates, setLiftedStates ] = useState({});
+  // states for roles and departments of data to be handled to dropdowns
   const [ roles, setRoles ] = useState( findDataOfType(employees,'role') );
   const [ departments, setDepartments ] = useState( findDataOfType(employees,'department') );
+
+  // a state to dismiss the Navatron and render the rest of the application
+  const [ isDismissed, setIsDismissed ] = useState(false);
 
   // call upon a custom hook to sort data
   const arrangeData = useArrange()
@@ -65,64 +71,80 @@ function App() {
     });
   }
 
+  // dismisses navatron and renders the rest of the application
+  function dismissNavatron(){
+    setIsDismissed(true);
+  }
+
   return (
     <main>
-      <Nav/>
-      <Container>
-      	<FormContainer onSubmit={formSubmit}>
-
-          <OnOnSwitch
-          options = {OnOnSwitchOptions}>
-
-            <SearchBar name={{id:'query', display:'Filter by keyword', toDisplay:false}}/>
-            <DropDownContainer name={{id:'dropDown container',display:'Filter by category'}} options={filterDropDownOptions}>
-              <Dropdown 
-                options={roles.map(role => { return { value:role, display:role } })}
-                name={{id:'role',display:'filter by job title'}}
-                constructValue={constructFilterValue}
+      <Navatron
+      title='The Employee Page'
+      subtext='All your employees, all in one place'
+      buttonText='View Employees'
+      isDismissed={isDismissed}
+      onClick={dismissNavatron}/>
+      {isDismissed?
+      <div>
+        <Container>
+        	<FormContainer onSubmit={formSubmit}>
+  
+            <OnOnSwitch
+            options = {OnOnSwitchOptions}>
+  
+              <SearchBar name={{id:'query', display:'Filter by keyword', toDisplay:false}}/>
+              <DropDownContainer name={{id:'dropDown container',display:'Filter by category'}} options={filterDropDownOptions}>
+                <Dropdown 
+                  options={roles.map(role => { return { value:role, display:role } })}
+                  name={{id:'role',display:'filter by job title'}}
+                  constructValue={constructFilterValue}
+                />
+  
+                <Dropdown 
+                  options={departments.map(department => { return {value:department, display:department} })}
+                  name={{id:'department',display:'filter by department'}}
+                  constructValue={constructFilterValue}
+                />
+  
+                <SalaryFilter name={{id:'salary',display:'filter by salary'}}/>
+              </DropDownContainer>
+              
+            </OnOnSwitch>
+        	  
+        	  <InlineContainer gap='1rem' minWidth='75px'>
+              <Dropdown
+                options={sortDropDownOptions}
+                name={{id:'sortCategory',display:'Sort by'}}
+                constructValue={constructSortValue}
               />
-
-              <Dropdown 
-                options={departments.map(department => { return {value:department, display:department} })}
-                name={{id:'department',display:'filter by department'}}
-                constructValue={constructFilterValue}
+              <Dropdown
+                options={isAscendingDropDownOptions}
+                name={{id:'isAscending',display:'Order'}}
+                constructValue={constructSortValue}
               />
-
-              <SalaryFilter name={{id:'salary',display:'filter by salary'}}/>
-            </DropDownContainer>
-            
-          </OnOnSwitch>
-      	  
-      	  <InlineContainer gap='1rem' minWidth='75px'>
-            <Dropdown
-              options={sortDropDownOptions}
-              name={{id:'sortCategory',display:'Sort by'}}
-              constructValue={constructSortValue}
-            />
-            <Dropdown
-              options={isAscendingDropDownOptions}
-              name={{id:'isAscending',display:'Order'}}
-              constructValue={constructSortValue}
-            />
-      	  </InlineContainer>
-
-          <div style={{textAlign:'center'}}>
-            <button type='submit'>Refine Employees</button>
-          </div>
-
-      	</FormContainer>
-      </Container>
-
-      <div style={{textAlign:'center'}}>
-        {filteredEmployees.length === employees.length?
-        undefined:
-        <button type='button' onClick={() => reset(liftedStates)}>All Employees</button>}
+        	  </InlineContainer>
+  
+            <div style={{textAlign:'center'}}>
+              <button type='submit'>Refine Employees</button>
+            </div>
+  
+        	</FormContainer>
+        </Container>
+  
+        <div style={{textAlign:'center'}}>
+          {filteredEmployees.length === employees.length?
+          undefined
+          :
+          <button type='button' onClick={() => reset(liftedStates)}>All Employees</button>}
+        </div>
+  
+        <ResultContainer results={employees} liftUpState={liftUpState}>
+          <Employee/>
+        </ResultContainer>
+        
       </div>
-
-      <ResultContainer results={employees} liftUpState={liftUpState}>
-        <Employee/>
-      </ResultContainer>
-      
+      :
+      undefined}
     </main>
   );
 }
