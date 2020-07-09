@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Nav from './components/elements/Nav';
 import FormContainer from './components/lib/containers/FormContainer';
 import Dropdown from './components/lib/inputs/Dropdown';
@@ -43,8 +43,10 @@ function App() {
     liftedStates.setResultContainerData(filteredAndSortedData);
   }
 
+  
   function reset(liftedStates){
-    liftedStates.setResultContainerData([...employees])
+    setFilteredEmployees([...employees]);
+    liftedStates.setResultContainerData([...employees]);
   }
 
   function constructFilterValue(option, name){
@@ -75,14 +77,16 @@ function App() {
             <SearchBar name={{id:'query', display:'Filter by keyword', toDisplay:false}}/>
             <DropDownContainer name={{id:'dropDown container',display:'Filter by category'}} options={filterDropDownOptions}>
               <Dropdown 
-              options={roles.map(role => { return { value:role, display:role } })}
-              name={{id:'role',display:'filter by job title'}}
-              constructValue={constructFilterValue}/>
+                options={roles.map(role => { return { value:role, display:role } })}
+                name={{id:'role',display:'filter by job title'}}
+                constructValue={constructFilterValue}
+              />
 
               <Dropdown 
-              options={departments.map(department => { return {value:department, display:department} })}
-              name={{id:'department',display:'filter by department'}}
-              constructValue={constructFilterValue}/>
+                options={departments.map(department => { return {value:department, display:department} })}
+                name={{id:'department',display:'filter by department'}}
+                constructValue={constructFilterValue}
+              />
 
               <SalaryFilter name={{id:'salary',display:'filter by salary'}}/>
             </DropDownContainer>
@@ -90,8 +94,16 @@ function App() {
           </OnOnSwitch>
       	  
       	  <InlineContainer gap='1rem' minWidth='75px'>
-            <Dropdown options={sortDropDownOptions} name={{id:'sortCategory',display:'Sort by'}} constructValue={constructSortValue}/>
-            <Dropdown options={isAscendingDropDownOptions} name={{id:'isAscending',display:'Order'}} constructValue={constructSortValue}/>
+            <Dropdown
+              options={sortDropDownOptions}
+              name={{id:'sortCategory',display:'Sort by'}}
+              constructValue={constructSortValue}
+            />
+            <Dropdown
+              options={isAscendingDropDownOptions}
+              name={{id:'isAscending',display:'Order'}}
+              constructValue={constructSortValue}
+            />
       	  </InlineContainer>
 
           <div style={{textAlign:'center'}}>
